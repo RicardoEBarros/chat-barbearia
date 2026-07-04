@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/RicardoEBarros/chat-barbearia/issues"
   },
-  "homepage": "https://github.com/RicardoEBarros/chat-barbearia#readme"
+  "homepage": "https://github.com/RicardoEBarros/chat-barbearia#readme",
+  "devDependencies": {
+    "git-commit-msg-linter": "^5.0.8"
+  }
 }
