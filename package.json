@@ -18,7 +18,12 @@
   },
   "homepage": "https://github.com/RicardoEBarros/chat-barbearia#readme",
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@stylistic/eslint-plugin": "^5.10.0",
+    "eslint": "^10.6.0",
     "git-commit-msg-linter": "^5.0.8",
-    "prettier": "^3.9.4"
+    "globals": "^17.7.0",
+    "prettier": "^3.9.4",
+    "typescript-eslint": "^8.62.1"
   }
 }
