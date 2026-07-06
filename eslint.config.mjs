@@ -7,7 +7,8 @@ import stylisticJs from '@stylistic/eslint-plugin'
 export default defineConfig([
   ...tseslint.configs.recommended,
   { 
-    files: [ '**/*.{js,mjs,cjs,ts,mts,cts}' ], 
+    ignores: [ 'dist', '**/*.config.js', '**/*.json' ],
+    files: [ '**/*.{js,cjs,ts,mts,cts}' ], 
     plugins: { 
       js, 
       '@stylistic/js': stylisticJs 
@@ -20,7 +21,7 @@ export default defineConfig([
       'no-eval': 'error',
       'curly': [ 'warn', 'all' ],
       'no-var': 'warn',
-      'indent': [ 'error', 2 ],
+      'indent': [ 'error', 4 ],
       'prefer-const': 'warn',
       'quotes': [ 'error', 'single' ],
       'arrow-spacing': [ 'error', { before: true, after: true } ],
