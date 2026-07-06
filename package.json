@@ -3,17 +3,17 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
+  "type": "commonjs",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --passWithNoTests --silent --noStackTrace --runInBand"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/RicardoEBarros/chat-barbearia.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/RicardoEBarros/chat-barbearia/issues"
   },
@@ -21,11 +21,14 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@stylistic/eslint-plugin": "^5.10.0",
+    "@types/jest": "^30.0.0",
     "@types/node": "^26.1.0",
     "eslint": "^10.6.0",
     "git-commit-msg-linter": "^5.0.8",
     "globals": "^17.7.0",
+    "jest": "^30.4.2",
     "prettier": "^3.9.4",
+    "ts-jest": "^29.4.11",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.62.1"
   }
