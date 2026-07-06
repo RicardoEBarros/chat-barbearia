@@ -1,10 +1,9 @@
 {
     "compilerOptions": {
         "outDir": "dist",
-        "module": "es2022",
+        "module": "nodenext",
         "allowJs": true,
         "allowSyntheticDefaultImports": true,
-        "baseUrl": ".",
         "esModuleInterop": true,
         "rootDir": "src",
         "declaration": true,
@@ -16,7 +15,7 @@
         "target": "es2025",
         "moduleResolution": "nodenext",
         "paths": {
-            "@/*": ["src/*"]
+            "@/*": ["./src/*"]
         }
     },
     "include": [
