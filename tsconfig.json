@@ -1,0 +1,29 @@
+{
+    "compilerOptions": {
+        "outDir": "dist",
+        "module": "es2022",
+        "allowJs": true,
+        "allowSyntheticDefaultImports": true,
+        "baseUrl": ".",
+        "esModuleInterop": true,
+        "rootDir": "src",
+        "declaration": true,
+        "declarationMap": true,
+        "tsBuildInfoFile": "dist/tsconfig.tsbuildinfo",
+        "sourceMap": true,
+        "forceConsistentCasingInFileNames": true,
+        "isolatedModules": true,
+        "target": "es2025",
+        "moduleResolution": "nodenext",
+        "paths": {
+            "@/*": ["src/*"]
+        }
+    },
+    "include": [
+        "src"
+    ],
+    "exclude": [
+        "**/*.spec.ts",
+        "**/*.test.ts"
+    ]
+}
