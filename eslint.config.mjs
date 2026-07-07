@@ -25,13 +25,14 @@ export default defineConfig([
       'prefer-const': 'warn',
       'quotes': [ 'error', 'single' ],
       'arrow-spacing': [ 'error', { before: true, after: true } ],
+      'no-unused-vars': 'off',
       '@typescript-eslint/strict-boolean-expressions': 'off',
       '@stylistic/js/function-call-spacing': [ 'error', 'never' ],
       '@stylistic/js/array-bracket-spacing': [ 'error', 'always' ],
       '@stylistic/js/eol-last': [ 'error', 'always' ],
       '@stylistic/js/function-paren-newline': [ 'error', { minItems: 5 } ],
       '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-unused-vars': 'off'
+      '@typescript-eslint/no-unused-vars': ['error', { 'vars': 'all' }]
     }
   },
 ])
