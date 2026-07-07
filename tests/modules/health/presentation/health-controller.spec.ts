@@ -1,5 +1,6 @@
-import { HealthController } from '@/modules/health/presentation/health-controller'
 import { describe, it, expect } from '@jest/globals'
+
+import { HealthController } from '@/modules/health/presentation/health-controller'
 
 describe('HealthController Test Suíte', () => {
 
