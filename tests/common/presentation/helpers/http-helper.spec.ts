@@ -19,6 +19,13 @@ describe('HttpHelper Test Suíte', () => {
             expect(resposta.body).toBe(fake) 
         })
 
+
+        it('Deve retornar o valor padrão do body', () => {
+            const valorPadrao = {}
+            const resposta = ok()
+            expect(resposta.body).toEqual(valorPadrao) 
+        })
+
     })
 
 })
