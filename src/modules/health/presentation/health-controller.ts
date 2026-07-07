@@ -1,4 +1,4 @@
-import { HttpResponse } from '@/common/protocols/http'
+import { HttpResponse } from '@/common/presentation/protocols/http'
 
 export class HealthController {
 
