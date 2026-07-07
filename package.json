@@ -26,6 +26,7 @@
   "homepage": "https://github.com/RicardoEBarros/chat-barbearia#readme",
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@faker-js/faker": "^7.6.0",
     "@stylistic/eslint-plugin": "^5.10.0",
     "@types/jest": "^30.0.0",
     "@types/node": "^26.1.0",
