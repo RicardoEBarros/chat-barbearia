@@ -1,7 +1,8 @@
-import { describe, it, expect } from '@jest/globals'
+import { describe, it, expect, jest } from '@jest/globals'
 
-import { HealthController } from '@/modules/health/presentation/health-controller'
 import { StatusCode } from '@/common/presentation/enums/status-code'
+import { HealthController } from '@/modules/health/presentation/health-controller'
+import * as HttpHelper from '@/common/presentation/helpers/http-helper'
 
 describe('HealthController Test Suíte', () => {
 
@@ -17,7 +18,13 @@ describe('HealthController Test Suíte', () => {
         expect(resposta.body).toBeNull() 
     })
 
-    it.todo('Deve retornar o status code 500 se falhar')
+    it('Deve retornar o status code 500 se falhar', async () => {
+        const sut = new HealthController()
+        jest.spyOn(HttpHelper, 'ok').mockImplementationOnce(() => { throw new Error() })
+        const resposta = await sut.handler()
+        expect(resposta.statusCode).toBe(500)  
+    })
+
     it.todo('Deve retornar uma mensagem de erro se falhar')
 
 })
