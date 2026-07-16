@@ -23,7 +23,7 @@ describe('HealthController Test Suíte', () => {
         const sut = new HealthController()
         jest.spyOn(HttpHelper, 'ok').mockImplementationOnce(() => { throw new Error() })
         const resposta = await sut.handler()
-        expect(resposta.statusCode).toBe(500)  
+        expect(resposta.statusCode).toBe(StatusCode.serverError)  
     })
 
     it('Deve retornar uma mensagem de erro se falhar', async () => {

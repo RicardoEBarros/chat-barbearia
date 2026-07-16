@@ -1,6 +1,4 @@
-import { StatusCode } from '@/common/presentation/enums/status-code'
-import { InternalServerError } from '@/common/presentation/errors/internal-server-error.error'
-import { ok } from '@/common/presentation/helpers/http-helper'
+import { ok, serverError } from '@/common/presentation/helpers/http-helper'
 import { HttpResponse } from '@/common/presentation/protocols/http'
 
 export class HealthController {
@@ -9,11 +7,8 @@ export class HealthController {
         
         try {
             return ok()
-        } catch {
-            return {
-                statusCode: StatusCode.serverError,
-                body: new InternalServerError()
-            }
+        } catch (error){
+            return serverError(error as Error)
         }
     }
 
