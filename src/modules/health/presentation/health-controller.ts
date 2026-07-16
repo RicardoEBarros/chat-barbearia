@@ -4,7 +4,14 @@ import { HttpResponse } from '@/common/presentation/protocols/http'
 export class HealthController {
 
     async handler(): Promise<HttpResponse> {
-        return ok()
+        
+        try {
+            return ok()
+        } catch {
+            return {
+                statusCode: 500
+            }
+        }
     }
 
 }
