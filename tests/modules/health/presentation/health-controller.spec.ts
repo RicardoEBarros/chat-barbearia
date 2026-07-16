@@ -11,5 +11,13 @@ describe('HealthController Test Suíte', () => {
         expect(resposta.statusCode).toBe(StatusCode.ok)
     })
 
-})
+    it('Deve retornar o body com o valor null', async () => {
+        const sut = new HealthController()
+        const resposta = await sut.handler()
+        expect(resposta.body).toBeNull() 
+    })
 
+    it.todo('Deve retornar o status code 500 se falhar')
+    it.todo('Deve retornar uma mensagem de erro se falhar')
+
+})
