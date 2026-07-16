@@ -1,7 +1,8 @@
 import { ok, serverError } from '@/common/presentation/helpers/http-helper'
+import { Controller } from '@/common/presentation/protocols/controller.protocol'
 import { HttpResponse } from '@/common/presentation/protocols/http'
 
-export class HealthController {
+export class HealthController implements Controller {
 
     async handler(): Promise<HttpResponse> {
         
