@@ -3,6 +3,7 @@ import { faker } from '@faker-js/faker'
 
 import { ok, serverError } from '@/common/presentation/helpers/http-helper'
 import { StatusCode } from '@/common/presentation/enums/status-code'
+import { InternalServerError } from '@/common/presentation/errors/internal-server-error.error'
 
 describe('HttpHelper Test Suíte', () => {
 
@@ -35,7 +36,13 @@ describe('HttpHelper Test Suíte', () => {
             expect(resposta.statusCode).toBe(StatusCode.serverError)
         })
 
-        it.todo('Deve retornar o body com o valor correto')
+        it('Deve retornar o body com o valor correto', () => {
+            const error = new Error()
+            const resposta = serverError(error)
+            expect(resposta.body).toEqual(new InternalServerError())
+            expect(resposta.body.stack).toEqual(error.stack)
+        })
+
         it.todo('Deve retornar o body com o valor padrão')
 
     })
