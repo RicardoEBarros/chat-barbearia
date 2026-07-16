@@ -3,6 +3,7 @@ import { describe, it, expect, jest } from '@jest/globals'
 import { StatusCode } from '@/common/presentation/enums/status-code'
 import { HealthController } from '@/modules/health/presentation/health-controller'
 import * as HttpHelper from '@/common/presentation/helpers/http-helper'
+import { InternalServerError } from '@/common/presentation/errors/internal-server-error.error'
 
 describe('HealthController Test Suíte', () => {
 
@@ -25,6 +26,11 @@ describe('HealthController Test Suíte', () => {
         expect(resposta.statusCode).toBe(500)  
     })
 
-    it.todo('Deve retornar uma mensagem de erro se falhar')
+    it('Deve retornar uma mensagem de erro se falhar', async () => {
+        const sut = new HealthController()
+        jest.spyOn(HttpHelper, 'ok').mockImplementationOnce(() => { throw new Error() })
+        const resposta = await sut.handler()
+        expect(resposta.body).toEqual(new InternalServerError())   
+    })
 
 })
