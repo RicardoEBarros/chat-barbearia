@@ -1,4 +1,4 @@
-import { describe, it, expect } from '@jest/globals'
+import { describe, it, expect, beforeEach } from '@jest/globals'
 import { faker } from '@faker-js/faker'
 
 import { ok, serverError } from '@/common/presentation/helpers/http-helper'
@@ -30,20 +30,22 @@ describe('HttpHelper Test Suíte', () => {
 
     describe('serverError', () => {
 
+        let error: Error
+
+        beforeEach(() => {
+            error = new Error()
+        })
+
         it('Deve retornar o status code 500', () => {
-            const error = new Error()
             const resposta = serverError(error)
             expect(resposta.statusCode).toBe(StatusCode.serverError)
         })
 
         it('Deve retornar o body com o valor correto', () => {
-            const error = new Error()
             const resposta = serverError(error)
             expect(resposta.body).toEqual(new InternalServerError())
             expect(resposta.body.stack).toEqual(error.stack)
         })
-
-        it.todo('Deve retornar o body com o valor padrão')
 
     })
 
