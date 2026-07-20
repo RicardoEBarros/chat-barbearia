@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker'
-import { ControllerStub } from '../../../stubs/controller-stub'
+import { ControllerStub } from '../../../../../../mocks/stubs/controller-stub'
 
 const RANDOM_NUMBER_UNTIL_ONE_HUNDRED = Math.trunc((Math.random() * 100))
 const ERROR_FAMILY = faker.helpers.arrayElement([ 4, 5 ])
