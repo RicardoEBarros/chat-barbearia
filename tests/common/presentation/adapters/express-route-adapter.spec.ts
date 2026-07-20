@@ -14,7 +14,7 @@ describe('ExpressRouteAdapter Suíte', () => {
         localApp.use(express.json())
     })
 
-    it('Deve chamar o método handler com o parâmetro correto', async () => {
+    it('Deve chamar o método handler com o parâmetro correto se método for POST', async () => {
 
         const { endPointFake, bodyFake, controllerStub } = makeExpressRouteAdapter()
 
@@ -28,7 +28,7 @@ describe('ExpressRouteAdapter Suíte', () => {
 
     })
 
-    it('Deve chamar o método handler sem o parâmetro body se método for GET', async () => {
+    it('Deve chamar o método handler com o parâmetro correto se método for GET', async () => {
 
         const { endPointFake, bodyFake, controllerStub } = makeExpressRouteAdapter()
 
@@ -38,7 +38,7 @@ describe('ExpressRouteAdapter Suíte', () => {
             .get(endPointFake)
             .send(bodyFake)
 
-        expect(controllerStub.input).toBe(undefined)
+        expect(controllerStub.input.body).toEqual(bodyFake)
 
     })        
 
