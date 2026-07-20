@@ -83,6 +83,19 @@ describe('ExpressRouteAdapter Suíte', () => {
 
     })      
 
+    it('Deve chamar o método handler  sem um body se método for PUT', async () => {
+
+        const { endPointFake, controllerStub } = makeExpressRouteAdapter()
+
+        localApp.put(endPointFake, adaptRoute(controllerStub))
+
+        await request(localApp)
+            .put(endPointFake)
+
+        expect(controllerStub.input?.body).toEqual(undefined)
+
+    })          
+
     it('Deve chamar o método handler com o parâmetro correto se método for DELETE', async () => {
 
         const { endPointFake, bodyFake, controllerStub } = makeExpressRouteAdapter()
