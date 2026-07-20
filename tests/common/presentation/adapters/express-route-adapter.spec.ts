@@ -54,6 +54,20 @@ describe('ExpressRouteAdapter Suíte', () => {
         expect(controllerStub.input.body).toEqual(bodyFake)
 
     })    
+
+
+    it('Deve chamar o método handler sem um body se método for GET', async () => {
+
+        const { endPointFake, controllerStub } = makeExpressRouteAdapter()
+
+        localApp.get(endPointFake, adaptRoute(controllerStub))
+
+        await request(localApp)
+            .get(endPointFake)
+
+        expect(controllerStub.input?.body).toEqual(undefined)
+
+    })        
     
     it('Deve chamar o método handler com o parâmetro correto se método for PUT', async () => {
 
