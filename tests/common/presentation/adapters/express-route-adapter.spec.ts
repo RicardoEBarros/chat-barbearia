@@ -42,6 +42,20 @@ describe('ExpressRouteAdapter Suíte', () => {
 
     })        
 
+    it('Deve chamar o método handler sem o parâmetro body se método for DELETE', async () => {
+
+        const { endPointFake, bodyFake, controllerStub } = makeExpressRouteAdapter()
+
+        localApp.get(endPointFake, adaptRoute(controllerStub))
+
+        await request(localApp)
+            .delete(endPointFake)
+            .send(bodyFake)
+
+        expect(controllerStub.input).toBe(undefined)
+
+    })       
+
     it.todo('Deve retornar o body correto se o status code estiver entre 200 e 299')
     it.todo('Deve retornar o error se o status code não estiver entre 200 e 299')
 
