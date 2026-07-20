@@ -1,6 +1,6 @@
 import express from 'express'
 import request from 'supertest'
-import { describe, it, expect, beforeAll, beforeEach } from '@jest/globals'
+import { describe, it, expect, beforeEach } from '@jest/globals'
 
 import { adaptRoute } from '@/common/presentation/adapters/express-route-adapter'
 import { makeExpressRouteAdapter } from './mocks/factories/express-route-adapter.factory'
@@ -9,15 +9,10 @@ import { faker } from '@faker-js/faker'
 describe('ExpressRouteAdapter Suíte', () => {
 
     let localApp: any
-    let randomSuccessStatusCode: number
 
     beforeEach(() => {
-        randomSuccessStatusCode = Math.trunc(200 + (Math.random() * 100))
-    })
-
-    beforeAll(() => {
         localApp = express()
-        localApp.use(express.json())
+        localApp.use(express.json())        
     })
 
     it('Deve chamar o método handler com o parâmetro correto se método for POST', async () => {
@@ -158,7 +153,7 @@ describe('ExpressRouteAdapter Suíte', () => {
 
     it('Deve retornar o body correto se o status code estiver entre 200 e 299 se POST', async () => {
 
-        const { endPointFake, controllerStub } = makeExpressRouteAdapter()
+        const { endPointFake, randomSuccessStatusCode, controllerStub } = makeExpressRouteAdapter()
 
         /** Criam valores de retorno aleatórios */
         controllerStub.statusCode = randomSuccessStatusCode
@@ -175,7 +170,7 @@ describe('ExpressRouteAdapter Suíte', () => {
 
     it('Deve retornar o body correto se o status code estiver entre 200 e 299 se GET', async () => {
 
-        const { endPointFake, controllerStub } = makeExpressRouteAdapter()
+        const { endPointFake, randomSuccessStatusCode, controllerStub } = makeExpressRouteAdapter()
 
         /** Criam valores de retorno aleatórios */
         controllerStub.statusCode = randomSuccessStatusCode
@@ -192,7 +187,7 @@ describe('ExpressRouteAdapter Suíte', () => {
 
     it('Deve retornar o body correto se o status code estiver entre 200 e 299 se DELETE', async () => {
 
-        const { endPointFake, controllerStub } = makeExpressRouteAdapter()
+        const { endPointFake, randomSuccessStatusCode, controllerStub } = makeExpressRouteAdapter()
 
         /** Criam valores de retorno aleatórios */
         controllerStub.statusCode = randomSuccessStatusCode
@@ -209,7 +204,7 @@ describe('ExpressRouteAdapter Suíte', () => {
     
     it('Deve retornar o body correto se o status code estiver entre 200 e 299 se PUT', async () => {
 
-        const { endPointFake, controllerStub } = makeExpressRouteAdapter()
+        const { endPointFake, randomSuccessStatusCode, controllerStub } = makeExpressRouteAdapter()
 
         /** Criam valores de retorno aleatórios */
         controllerStub.statusCode = randomSuccessStatusCode
@@ -226,7 +221,7 @@ describe('ExpressRouteAdapter Suíte', () => {
 
     it('Deve retornar o body correto se o status code estiver entre 200 e 299 se PATCH', async () => {
 
-        const { endPointFake, controllerStub } = makeExpressRouteAdapter()
+        const { endPointFake, randomSuccessStatusCode, controllerStub } = makeExpressRouteAdapter()
 
         /** Criam valores de retorno aleatórios */
         controllerStub.statusCode = randomSuccessStatusCode
@@ -241,7 +236,24 @@ describe('ExpressRouteAdapter Suíte', () => {
 
     })         
     
-    it.todo('Deve retornar o error se o status code não estiver entre 200 e 299')
+    it('Deve retornar o parâmetro error se o status code não estiver entre 200 e 299 se POST', async () => {
+
+        const { endPointFake, randomErrorStatusCode, controllerStub } = makeExpressRouteAdapter()
+
+        /** Criam valores de retorno aleatórios */
+        const errorMessage = JSON.parse(faker.datatype.json())
+        controllerStub.statusCode = randomErrorStatusCode
+        controllerStub.body = { message: errorMessage }
+
+        localApp.post(endPointFake, adaptRoute(controllerStub))
+
+        await request(localApp)
+            .post(endPointFake)
+            .expect(randomErrorStatusCode)
+            .expect({ error: errorMessage })
+
+    })
+ 
 
 })
 
