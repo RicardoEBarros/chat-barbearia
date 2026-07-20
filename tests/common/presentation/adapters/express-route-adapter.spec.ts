@@ -40,19 +40,33 @@ describe('ExpressRouteAdapter Suíte', () => {
 
         expect(controllerStub.input.body).toEqual(bodyFake)
 
-    })        
-
-    it('Deve chamar o método handler sem o parâmetro body se método for DELETE', async () => {
+    })    
+    
+    it('Deve chamar o método handler com o parâmetro correto se método for PUT', async () => {
 
         const { endPointFake, bodyFake, controllerStub } = makeExpressRouteAdapter()
 
-        localApp.get(endPointFake, adaptRoute(controllerStub))
+        localApp.put(endPointFake, adaptRoute(controllerStub))
+
+        await request(localApp)
+            .put(endPointFake)
+            .send(bodyFake)
+
+        expect(controllerStub.input.body).toEqual(bodyFake)
+
+    })      
+
+    it('Deve chamar o método handler com o parâmetro correto se método for DELETE', async () => {
+
+        const { endPointFake, bodyFake, controllerStub } = makeExpressRouteAdapter()
+
+        localApp.delete(endPointFake, adaptRoute(controllerStub))
 
         await request(localApp)
             .delete(endPointFake)
             .send(bodyFake)
 
-        expect(controllerStub.input).toBe(undefined)
+        expect(controllerStub.input.body).toEqual(bodyFake)
 
     })       
 
