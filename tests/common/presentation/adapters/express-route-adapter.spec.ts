@@ -271,6 +271,24 @@ describe('ExpressRouteAdapter Suíte', () => {
             .expect({ error: errorMessage })
 
     })    
+
+    it('Deve retornar o parâmetro error se o status code não estiver entre 200 e 299 se DELETE', async () => {
+
+        const { endPointFake, randomErrorStatusCode, controllerStub } = makeExpressRouteAdapter()
+
+        /** Criam valores de retorno aleatórios */
+        const errorMessage = JSON.parse(faker.datatype.json())
+        controllerStub.statusCode = randomErrorStatusCode
+        controllerStub.body = { message: errorMessage }
+
+        localApp.delete(endPointFake, adaptRoute(controllerStub))
+
+        await request(localApp)
+            .delete(endPointFake)
+            .expect(randomErrorStatusCode)
+            .expect({ error: errorMessage })
+
+    })        
  
 
 })
