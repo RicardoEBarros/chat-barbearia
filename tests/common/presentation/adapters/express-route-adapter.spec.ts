@@ -1,13 +1,19 @@
 import express from 'express'
 import request from 'supertest'
-import { describe, it, expect, beforeAll } from '@jest/globals'
+import { describe, it, expect, beforeAll, beforeEach } from '@jest/globals'
 
 import { adaptRoute } from '@/common/presentation/adapters/express-route-adapter'
 import { makeExpressRouteAdapter } from './mocks/factories/express-route-adapter.factory'
+import { faker } from '@faker-js/faker'
 
 describe('ExpressRouteAdapter Suíte', () => {
 
     let localApp: any
+    let randomSuccessStatusCode: number
+
+    beforeEach(() => {
+        randomSuccessStatusCode = Math.trunc(200 + (Math.random() * 100))
+    })
 
     beforeAll(() => {
         localApp = express()
@@ -150,7 +156,24 @@ describe('ExpressRouteAdapter Suíte', () => {
 
     })    
 
-    it.todo('Deve retornar o body correto se o status code estiver entre 200 e 299')
+    it('Deve retornar o body correto se o status code estiver entre 200 e 299 se POST', async () => {
+
+        const { endPointFake, controllerStub } = makeExpressRouteAdapter()
+
+        /** Criam valores de retorno aleatórios */
+        controllerStub.statusCode = randomSuccessStatusCode
+        controllerStub.body = JSON.parse(faker.datatype.json())
+
+        localApp.post(endPointFake, adaptRoute(controllerStub))
+
+        await request(localApp)
+            .post(endPointFake)
+            .expect(controllerStub.statusCode)
+            .expect(controllerStub.body)
+
+
+    })
+
     it.todo('Deve retornar o error se o status code não estiver entre 200 e 299')
 
 })
