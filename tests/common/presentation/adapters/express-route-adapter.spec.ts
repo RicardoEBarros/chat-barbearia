@@ -83,7 +83,7 @@ describe('ExpressRouteAdapter Suíte', () => {
 
     })      
 
-    it('Deve chamar o método handler  sem um body se método for PUT', async () => {
+    it('Deve chamar o método handler sem um body se método for PUT', async () => {
 
         const { endPointFake, controllerStub } = makeExpressRouteAdapter()
 
@@ -109,6 +109,19 @@ describe('ExpressRouteAdapter Suíte', () => {
         expect(controllerStub.input.body).toEqual(bodyFake)
 
     })       
+
+    it('Deve chamar o método handler sem um body se método for DELETE', async () => {
+
+        const { endPointFake, controllerStub } = makeExpressRouteAdapter()
+
+        localApp.delete(endPointFake, adaptRoute(controllerStub))
+
+        await request(localApp)
+            .delete(endPointFake)
+
+        expect(controllerStub.input?.body).toEqual(undefined)
+
+    })           
 
     it.todo('Deve retornar o body correto se o status code estiver entre 200 e 299')
     it.todo('Deve retornar o error se o status code não estiver entre 200 e 299')
