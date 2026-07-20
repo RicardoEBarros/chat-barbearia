@@ -137,6 +137,18 @@ describe('ExpressRouteAdapter Suíte', () => {
 
     })       
     
+    it('Deve chamar o método handler sem um body se método for PATCH', async () => {
+
+        const { endPointFake, controllerStub } = makeExpressRouteAdapter()
+
+        localApp.patch(endPointFake, adaptRoute(controllerStub))
+
+        await request(localApp)
+            .patch(endPointFake)
+
+        expect(controllerStub.input?.body).toEqual(undefined)
+
+    })    
 
     it.todo('Deve retornar o body correto se o status code estiver entre 200 e 299')
     it.todo('Deve retornar o error se o status code não estiver entre 200 e 299')
