@@ -15,317 +15,339 @@ describe('ExpressRouteAdapter Suíte', () => {
         localApp.use(express.json())        
     })
 
-    it('Deve chamar o método handler com o parâmetro correto se método for POST', async () => {
+    describe('POST', () => {
 
-        const { endPointFake, bodyFake, controllerStub } = makeExpressRouteAdapter()
+        it('Deve chamar o método handler com o parâmetro correto se método for POST', async () => {
 
-        localApp.post(endPointFake, adaptRoute(controllerStub))
+            const { endPointFake, bodyFake, controllerStub } = makeExpressRouteAdapter()
 
-        await request(localApp)
-            .post(endPointFake)
-            .send(bodyFake)
+            localApp.post(endPointFake, adaptRoute(controllerStub))
 
-        expect(controllerStub.input.body).toEqual(bodyFake)
+            await request(localApp)
+                .post(endPointFake)
+                .send(bodyFake)
 
-    })
+            expect(controllerStub.input.body).toEqual(bodyFake)
 
-    it('Deve chamar o método handler sem um body se método for POST', async () => {
+        })
 
-        const { endPointFake, controllerStub } = makeExpressRouteAdapter()
+        it('Deve chamar o método handler sem um body se método for POST', async () => {
 
-        localApp.post(endPointFake, adaptRoute(controllerStub))
+            const { endPointFake, controllerStub } = makeExpressRouteAdapter()
 
-        await request(localApp)
-            .post(endPointFake)
+            localApp.post(endPointFake, adaptRoute(controllerStub))
 
-        expect(controllerStub.input?.body).toEqual(undefined)
+            await request(localApp)
+                .post(endPointFake)
 
-    })    
+            expect(controllerStub.input?.body).toEqual(undefined)
 
-    it('Deve chamar o método handler com o parâmetro correto se método for GET', async () => {
+        })  
+        
 
-        const { endPointFake, bodyFake, controllerStub } = makeExpressRouteAdapter()
+        it('Deve retornar o body correto se o status code estiver entre 200 e 299 se POST', async () => {
 
-        localApp.get(endPointFake, adaptRoute(controllerStub))
+            const { endPointFake, randomSuccessStatusCode, controllerStub } = makeExpressRouteAdapter()
 
-        await request(localApp)
-            .get(endPointFake)
-            .send(bodyFake)
+            /** Criam valores de retorno aleatórios */
+            controllerStub.statusCode = randomSuccessStatusCode
+            controllerStub.body = JSON.parse(faker.datatype.json())
 
-        expect(controllerStub.input.body).toEqual(bodyFake)
+            localApp.post(endPointFake, adaptRoute(controllerStub))
 
-    })    
+            await request(localApp)
+                .post(endPointFake)
+                .expect(controllerStub.statusCode)
+                .expect(controllerStub.body)
 
+        })        
 
-    it('Deve chamar o método handler sem um body se método for GET', async () => {
+        it('Deve retornar o parâmetro error se o status code não estiver entre 200 e 299 se POST', async () => {
 
-        const { endPointFake, controllerStub } = makeExpressRouteAdapter()
+            const { endPointFake, randomErrorStatusCode, controllerStub } = makeExpressRouteAdapter()
 
-        localApp.get(endPointFake, adaptRoute(controllerStub))
+            /** Criam valores de retorno aleatórios */
+            const errorMessage = JSON.parse(faker.datatype.json())
+            controllerStub.statusCode = randomErrorStatusCode
+            controllerStub.body = { message: errorMessage }
 
-        await request(localApp)
-            .get(endPointFake)
+            localApp.post(endPointFake, adaptRoute(controllerStub))
 
-        expect(controllerStub.input?.body).toEqual(undefined)
+            await request(localApp)
+                .post(endPointFake)
+                .expect(randomErrorStatusCode)
+                .expect({ error: errorMessage })
 
-    })        
-    
-    it('Deve chamar o método handler com o parâmetro correto se método for PUT', async () => {
-
-        const { endPointFake, bodyFake, controllerStub } = makeExpressRouteAdapter()
-
-        localApp.put(endPointFake, adaptRoute(controllerStub))
-
-        await request(localApp)
-            .put(endPointFake)
-            .send(bodyFake)
-
-        expect(controllerStub.input.body).toEqual(bodyFake)
-
-    })      
-
-    it('Deve chamar o método handler sem um body se método for PUT', async () => {
-
-        const { endPointFake, controllerStub } = makeExpressRouteAdapter()
-
-        localApp.put(endPointFake, adaptRoute(controllerStub))
-
-        await request(localApp)
-            .put(endPointFake)
-
-        expect(controllerStub.input?.body).toEqual(undefined)
-
-    })          
-
-    it('Deve chamar o método handler com o parâmetro correto se método for DELETE', async () => {
-
-        const { endPointFake, bodyFake, controllerStub } = makeExpressRouteAdapter()
-
-        localApp.delete(endPointFake, adaptRoute(controllerStub))
-
-        await request(localApp)
-            .delete(endPointFake)
-            .send(bodyFake)
-
-        expect(controllerStub.input.body).toEqual(bodyFake)
-
-    })       
-
-    it('Deve chamar o método handler sem um body se método for DELETE', async () => {
-
-        const { endPointFake, controllerStub } = makeExpressRouteAdapter()
-
-        localApp.delete(endPointFake, adaptRoute(controllerStub))
-
-        await request(localApp)
-            .delete(endPointFake)
-
-        expect(controllerStub.input?.body).toEqual(undefined)
-
-    })       
-
-    it('Deve chamar o método handler com o parâmetro correto se método for PATCH', async () => {
-
-        const { endPointFake, bodyFake, controllerStub } = makeExpressRouteAdapter()
-
-        localApp.patch(endPointFake, adaptRoute(controllerStub))
-
-        await request(localApp)
-            .patch(endPointFake)
-            .send(bodyFake)
-
-        expect(controllerStub.input.body).toEqual(bodyFake)
-
-    })       
-    
-    it('Deve chamar o método handler sem um body se método for PATCH', async () => {
-
-        const { endPointFake, controllerStub } = makeExpressRouteAdapter()
-
-        localApp.patch(endPointFake, adaptRoute(controllerStub))
-
-        await request(localApp)
-            .patch(endPointFake)
-
-        expect(controllerStub.input?.body).toEqual(undefined)
-
-    })    
-
-    it('Deve retornar o body correto se o status code estiver entre 200 e 299 se POST', async () => {
-
-        const { endPointFake, randomSuccessStatusCode, controllerStub } = makeExpressRouteAdapter()
-
-        /** Criam valores de retorno aleatórios */
-        controllerStub.statusCode = randomSuccessStatusCode
-        controllerStub.body = JSON.parse(faker.datatype.json())
-
-        localApp.post(endPointFake, adaptRoute(controllerStub))
-
-        await request(localApp)
-            .post(endPointFake)
-            .expect(controllerStub.statusCode)
-            .expect(controllerStub.body)
+        })
 
     })
 
-    it('Deve retornar o body correto se o status code estiver entre 200 e 299 se GET', async () => {
+    describe('GET', () => {
 
-        const { endPointFake, randomSuccessStatusCode, controllerStub } = makeExpressRouteAdapter()
+        it('Deve chamar o método handler com o parâmetro correto se método for GET', async () => {
 
-        /** Criam valores de retorno aleatórios */
-        controllerStub.statusCode = randomSuccessStatusCode
-        controllerStub.body = JSON.parse(faker.datatype.json())
+            const { endPointFake, bodyFake, controllerStub } = makeExpressRouteAdapter()
 
-        localApp.get(endPointFake, adaptRoute(controllerStub))
+            localApp.get(endPointFake, adaptRoute(controllerStub))
 
-        await request(localApp)
-            .get(endPointFake)
-            .expect(controllerStub.statusCode)
-            .expect(controllerStub.body)
+            await request(localApp)
+                .get(endPointFake)
+                .send(bodyFake)
 
-    })    
+            expect(controllerStub.input.body).toEqual(bodyFake)
 
-    it('Deve retornar o body correto se o status code estiver entre 200 e 299 se DELETE', async () => {
+        })    
 
-        const { endPointFake, randomSuccessStatusCode, controllerStub } = makeExpressRouteAdapter()
 
-        /** Criam valores de retorno aleatórios */
-        controllerStub.statusCode = randomSuccessStatusCode
-        controllerStub.body = JSON.parse(faker.datatype.json())
+        it('Deve chamar o método handler sem um body se método for GET', async () => {
 
-        localApp.delete(endPointFake, adaptRoute(controllerStub))
+            const { endPointFake, controllerStub } = makeExpressRouteAdapter()
 
-        await request(localApp)
-            .delete(endPointFake)
-            .expect(controllerStub.statusCode)
-            .expect(controllerStub.body)
+            localApp.get(endPointFake, adaptRoute(controllerStub))
 
-    })        
-    
-    it('Deve retornar o body correto se o status code estiver entre 200 e 299 se PUT', async () => {
+            await request(localApp)
+                .get(endPointFake)
 
-        const { endPointFake, randomSuccessStatusCode, controllerStub } = makeExpressRouteAdapter()
+            expect(controllerStub.input?.body).toEqual(undefined)
 
-        /** Criam valores de retorno aleatórios */
-        controllerStub.statusCode = randomSuccessStatusCode
-        controllerStub.body = JSON.parse(faker.datatype.json())
+        })        
 
-        localApp.put(endPointFake, adaptRoute(controllerStub))
+        it('Deve retornar o body correto se o status code estiver entre 200 e 299 se GET', async () => {
 
-        await request(localApp)
-            .put(endPointFake)
-            .expect(controllerStub.statusCode)
-            .expect(controllerStub.body)
+            const { endPointFake, randomSuccessStatusCode, controllerStub } = makeExpressRouteAdapter()
 
-    })       
+            /** Criam valores de retorno aleatórios */
+            controllerStub.statusCode = randomSuccessStatusCode
+            controllerStub.body = JSON.parse(faker.datatype.json())
 
-    it('Deve retornar o body correto se o status code estiver entre 200 e 299 se PATCH', async () => {
+            localApp.get(endPointFake, adaptRoute(controllerStub))
 
-        const { endPointFake, randomSuccessStatusCode, controllerStub } = makeExpressRouteAdapter()
+            await request(localApp)
+                .get(endPointFake)
+                .expect(controllerStub.statusCode)
+                .expect(controllerStub.body)
 
-        /** Criam valores de retorno aleatórios */
-        controllerStub.statusCode = randomSuccessStatusCode
-        controllerStub.body = JSON.parse(faker.datatype.json())
+        })         
+        
+        it('Deve retornar o parâmetro error se o status code não estiver entre 200 e 299 se GET', async () => {
 
-        localApp.patch(endPointFake, adaptRoute(controllerStub))
+            const { endPointFake, randomErrorStatusCode, controllerStub } = makeExpressRouteAdapter()
 
-        await request(localApp)
-            .patch(endPointFake)
-            .expect(controllerStub.statusCode)
-            .expect(controllerStub.body)
+            /** Criam valores de retorno aleatórios */
+            const errorMessage = JSON.parse(faker.datatype.json())
+            controllerStub.statusCode = randomErrorStatusCode
+            controllerStub.body = { message: errorMessage }
 
-    })         
-    
-    it('Deve retornar o parâmetro error se o status code não estiver entre 200 e 299 se POST', async () => {
+            localApp.get(endPointFake, adaptRoute(controllerStub))
 
-        const { endPointFake, randomErrorStatusCode, controllerStub } = makeExpressRouteAdapter()
+            await request(localApp)
+                .get(endPointFake)
+                .expect(randomErrorStatusCode)
+                .expect({ error: errorMessage })
 
-        /** Criam valores de retorno aleatórios */
-        const errorMessage = JSON.parse(faker.datatype.json())
-        controllerStub.statusCode = randomErrorStatusCode
-        controllerStub.body = { message: errorMessage }
-
-        localApp.post(endPointFake, adaptRoute(controllerStub))
-
-        await request(localApp)
-            .post(endPointFake)
-            .expect(randomErrorStatusCode)
-            .expect({ error: errorMessage })
+        })    
 
     })
 
-    it('Deve retornar o parâmetro error se o status code não estiver entre 200 e 299 se GET', async () => {
+    describe('PUT', () => {
 
-        const { endPointFake, randomErrorStatusCode, controllerStub } = makeExpressRouteAdapter()
+        it('Deve chamar o método handler com o parâmetro correto se método for PUT', async () => {
 
-        /** Criam valores de retorno aleatórios */
-        const errorMessage = JSON.parse(faker.datatype.json())
-        controllerStub.statusCode = randomErrorStatusCode
-        controllerStub.body = { message: errorMessage }
+            const { endPointFake, bodyFake, controllerStub } = makeExpressRouteAdapter()
 
-        localApp.get(endPointFake, adaptRoute(controllerStub))
+            localApp.put(endPointFake, adaptRoute(controllerStub))
 
-        await request(localApp)
-            .get(endPointFake)
-            .expect(randomErrorStatusCode)
-            .expect({ error: errorMessage })
+            await request(localApp)
+                .put(endPointFake)
+                .send(bodyFake)
 
-    })    
+            expect(controllerStub.input.body).toEqual(bodyFake)
 
-    it('Deve retornar o parâmetro error se o status code não estiver entre 200 e 299 se DELETE', async () => {
+        })      
 
-        const { endPointFake, randomErrorStatusCode, controllerStub } = makeExpressRouteAdapter()
+        it('Deve chamar o método handler sem um body se método for PUT', async () => {
 
-        /** Criam valores de retorno aleatórios */
-        const errorMessage = JSON.parse(faker.datatype.json())
-        controllerStub.statusCode = randomErrorStatusCode
-        controllerStub.body = { message: errorMessage }
+            const { endPointFake, controllerStub } = makeExpressRouteAdapter()
 
-        localApp.delete(endPointFake, adaptRoute(controllerStub))
+            localApp.put(endPointFake, adaptRoute(controllerStub))
 
-        await request(localApp)
-            .delete(endPointFake)
-            .expect(randomErrorStatusCode)
-            .expect({ error: errorMessage })
+            await request(localApp)
+                .put(endPointFake)
 
-    })        
+            expect(controllerStub.input?.body).toEqual(undefined)
 
-    it('Deve retornar o parâmetro error se o status code não estiver entre 200 e 299 se PUT', async () => {
+        }) 
 
-        const { endPointFake, randomErrorStatusCode, controllerStub } = makeExpressRouteAdapter()
+        it('Deve retornar o body correto se o status code estiver entre 200 e 299 se PUT', async () => {
 
-        /** Criam valores de retorno aleatórios */
-        const errorMessage = JSON.parse(faker.datatype.json())
-        controllerStub.statusCode = randomErrorStatusCode
-        controllerStub.body = { message: errorMessage }
+            const { endPointFake, randomSuccessStatusCode, controllerStub } = makeExpressRouteAdapter()
 
-        localApp.put(endPointFake, adaptRoute(controllerStub))
+            /** Criam valores de retorno aleatórios */
+            controllerStub.statusCode = randomSuccessStatusCode
+            controllerStub.body = JSON.parse(faker.datatype.json())
 
-        await request(localApp)
-            .put(endPointFake)
-            .expect(randomErrorStatusCode)
-            .expect({ error: errorMessage })
+            localApp.put(endPointFake, adaptRoute(controllerStub))
 
-    })       
-    
-    it('Deve retornar o parâmetro error se o status code não estiver entre 200 e 299 se PATCH', async () => {
+            await request(localApp)
+                .put(endPointFake)
+                .expect(controllerStub.statusCode)
+                .expect(controllerStub.body)
 
-        const { endPointFake, randomErrorStatusCode, controllerStub } = makeExpressRouteAdapter()
+        })     
 
-        /** Criam valores de retorno aleatórios */
-        const errorMessage = JSON.parse(faker.datatype.json())
-        controllerStub.statusCode = randomErrorStatusCode
-        controllerStub.body = { message: errorMessage }
+        it('Deve retornar o parâmetro error se o status code não estiver entre 200 e 299 se PUT', async () => {
 
-        localApp.patch(endPointFake, adaptRoute(controllerStub))
+            const { endPointFake, randomErrorStatusCode, controllerStub } = makeExpressRouteAdapter()
 
-        await request(localApp)
-            .patch(endPointFake)
-            .expect(randomErrorStatusCode)
-            .expect({ error: errorMessage })
+            /** Criam valores de retorno aleatórios */
+            const errorMessage = JSON.parse(faker.datatype.json())
+            controllerStub.statusCode = randomErrorStatusCode
+            controllerStub.body = { message: errorMessage }
 
-    })            
+            localApp.put(endPointFake, adaptRoute(controllerStub))
+
+            await request(localApp)
+                .put(endPointFake)
+                .expect(randomErrorStatusCode)
+                .expect({ error: errorMessage })
+
+        })     
+
+    })
+
+    describe('PATCH', () => {
+
+        it('Deve chamar o método handler com o parâmetro correto se método for PATCH', async () => {
+
+            const { endPointFake, bodyFake, controllerStub } = makeExpressRouteAdapter()
+
+            localApp.patch(endPointFake, adaptRoute(controllerStub))
+
+            await request(localApp)
+                .patch(endPointFake)
+                .send(bodyFake)
+
+            expect(controllerStub.input.body).toEqual(bodyFake)
+
+        })       
+            
+        it('Deve chamar o método handler sem um body se método for PATCH', async () => {
+
+            const { endPointFake, controllerStub } = makeExpressRouteAdapter()
+
+            localApp.patch(endPointFake, adaptRoute(controllerStub))
+
+            await request(localApp)
+                .patch(endPointFake)
+
+            expect(controllerStub.input?.body).toEqual(undefined)
+
+        }) 
+        
+
+        it('Deve retornar o body correto se o status code estiver entre 200 e 299 se PATCH', async () => {
+
+            const { endPointFake, randomSuccessStatusCode, controllerStub } = makeExpressRouteAdapter()
+
+            /** Criam valores de retorno aleatórios */
+            controllerStub.statusCode = randomSuccessStatusCode
+            controllerStub.body = JSON.parse(faker.datatype.json())
+
+            localApp.patch(endPointFake, adaptRoute(controllerStub))
+
+            await request(localApp)
+                .patch(endPointFake)
+                .expect(controllerStub.statusCode)
+                .expect(controllerStub.body)
+
+        })            
+
+        it('Deve retornar o parâmetro error se o status code não estiver entre 200 e 299 se PATCH', async () => {
+
+            const { endPointFake, randomErrorStatusCode, controllerStub } = makeExpressRouteAdapter()
+
+            /** Criam valores de retorno aleatórios */
+            const errorMessage = JSON.parse(faker.datatype.json())
+            controllerStub.statusCode = randomErrorStatusCode
+            controllerStub.body = { message: errorMessage }
+
+            localApp.patch(endPointFake, adaptRoute(controllerStub))
+
+            await request(localApp)
+                .patch(endPointFake)
+                .expect(randomErrorStatusCode)
+                .expect({ error: errorMessage })
+
+        }) 
+
+    })
+
+    describe('DELETE', () => {
+
+        it('Deve chamar o método handler com o parâmetro correto se método for DELETE', async () => {
+
+            const { endPointFake, bodyFake, controllerStub } = makeExpressRouteAdapter()
+
+            localApp.delete(endPointFake, adaptRoute(controllerStub))
+
+            await request(localApp)
+                .delete(endPointFake)
+                .send(bodyFake)
+
+            expect(controllerStub.input.body).toEqual(bodyFake)
+
+        })       
+
+        it('Deve chamar o método handler sem um body se método for DELETE', async () => {
+
+            const { endPointFake, controllerStub } = makeExpressRouteAdapter()
+
+            localApp.delete(endPointFake, adaptRoute(controllerStub))
+
+            await request(localApp)
+                .delete(endPointFake)
+
+            expect(controllerStub.input?.body).toEqual(undefined)
+
+        })       
+
+        it('Deve retornar o body correto se o status code estiver entre 200 e 299 se DELETE', async () => {
+
+            const { endPointFake, randomSuccessStatusCode, controllerStub } = makeExpressRouteAdapter()
+
+            /** Criam valores de retorno aleatórios */
+            controllerStub.statusCode = randomSuccessStatusCode
+            controllerStub.body = JSON.parse(faker.datatype.json())
+
+            localApp.delete(endPointFake, adaptRoute(controllerStub))
+
+            await request(localApp)
+                .delete(endPointFake)
+                .expect(controllerStub.statusCode)
+                .expect(controllerStub.body)
+
+        })        
+            
+
+        it('Deve retornar o parâmetro error se o status code não estiver entre 200 e 299 se DELETE', async () => {
+
+            const { endPointFake, randomErrorStatusCode, controllerStub } = makeExpressRouteAdapter()
+
+            /** Criam valores de retorno aleatórios */
+            const errorMessage = JSON.parse(faker.datatype.json())
+            controllerStub.statusCode = randomErrorStatusCode
+            controllerStub.body = { message: errorMessage }
+
+            localApp.delete(endPointFake, adaptRoute(controllerStub))
+
+            await request(localApp)
+                .delete(endPointFake)
+                .expect(randomErrorStatusCode)
+                .expect({ error: errorMessage })
+
+        })     
+
+    })             
  
-
 })
 
