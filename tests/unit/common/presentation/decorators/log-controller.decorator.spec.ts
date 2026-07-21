@@ -1,6 +1,7 @@
 import { describe, it, expect } from '@jest/globals'
 
 import { makeLogControllerDecorator } from './mocks/log-controller-decorator.factory'
+import { RandomStatusCodeObjectMother } from '../../../../mocks/object-mothers/random-status-code.mother'
 
 describe('LogControllerDecorator Suíte', () => {
 
@@ -19,7 +20,7 @@ describe('LogControllerDecorator Suíte', () => {
         const { sut, httpRequest, controllerStub, logErrorRepositoryStub } = makeLogControllerDecorator()
 
         /** valores aleatórios */
-        controllerStub.statusCode = 200 + (Math.trunc((Math.random() * 100)) % 99)
+        controllerStub.statusCode = RandomStatusCodeObjectMother.successCode()
         controllerStub.body = new Error()
 
         await sut.handler({ body: httpRequest})
