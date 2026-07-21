@@ -1,4 +1,3 @@
-import { ok } from '../helpers/http-helper'
 import { Controller } from '../protocols/controller.protocol'
 import { HttpRequest, HttpResponse } from '../protocols/http'
 import { LogError } from '../protocols/log-error.protocol'
@@ -12,7 +11,7 @@ export class LogControllerDecorator implements Controller {
         if (httpResponse.statusCode >= 500 && httpResponse.statusCode <= 599) {
             await this.logErrorRepository.logError(httpResponse.body.stack)
         }
-        return ok()
+        return httpResponse
     }
 
 }
