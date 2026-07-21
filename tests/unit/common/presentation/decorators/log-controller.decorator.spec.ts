@@ -2,6 +2,7 @@ import { describe, it, expect } from '@jest/globals'
 
 import { makeLogControllerDecorator } from './mocks/log-controller-decorator.factory'
 import { RandomStatusCodeObjectMother } from '../../../../mocks/object-mothers/random-status-code.mother'
+import { faker } from '@faker-js/faker'
 
 describe('LogControllerDecorator Suíte', () => {
 
@@ -43,7 +44,19 @@ describe('LogControllerDecorator Suíte', () => {
 
     })
 
-    it.todo('Deve retornar o valor correto se tudo der certo')
+    it('Deve retornar o valor correto se tudo der certo', async () => {
+
+        const { sut, httpRequest, controllerStub } = makeLogControllerDecorator()
+
+        /** valores aleatórios */
+        controllerStub.statusCode = RandomStatusCodeObjectMother.oneCodeBetweenAllValidFamilies()
+        controllerStub.body = JSON.parse(faker.datatype.json())
+
+        const httpResponse = await sut.handler({ body: httpRequest})
+        expect(controllerStub.callsCount).toBe(1)
+        expect(httpResponse).toEqual(controllerStub.return)
+
+    })
 
 })
 

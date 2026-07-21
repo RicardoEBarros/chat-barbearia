@@ -1,5 +1,8 @@
 import { StatusCode } from '@/common/presentation/enums/status-code'
 import { Builder } from '../protocols/builder.protocol'
+import { faker } from '@faker-js/faker'
+
+const INITIAL_NUMBER_OF_VALID_STATUS_CODES = [ 2, 4, 5 ]
 
 export class RandomStatusCodeBuilder implements Builder<number> {
     
@@ -19,7 +22,13 @@ export class RandomStatusCodeBuilder implements Builder<number> {
     }
 
     serverErrorFamily(): RandomStatusCodeBuilder {
-        this.randomStatusCode = 500 + + this.calcIncrementUntilLimit()
+        this.randomStatusCode = 500 + this.calcIncrementUntilLimit()
+        return this
+    }
+
+    randomCodeBetweenAllFamilies(): RandomStatusCodeBuilder {
+        const validStatusCode = faker.helpers.arrayElement(INITIAL_NUMBER_OF_VALID_STATUS_CODES) * 100
+        this.randomStatusCode = validStatusCode + this.calcIncrementUntilLimit()
         return this
     }
 

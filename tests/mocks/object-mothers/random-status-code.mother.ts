@@ -16,4 +16,11 @@ export class RandomStatusCodeObjectMother {
             .build()
     }    
 
+    static oneCodeBetweenAllValidFamilies(): number {
+        return RandomStatusCodeBuilder
+            .instantiate()
+            .randomCodeBetweenAllFamilies()
+            .build() 
+    }
+
 }

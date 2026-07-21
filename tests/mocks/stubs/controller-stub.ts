@@ -13,13 +13,12 @@ export class ControllerStub implements Controller {
     statusCode: number = StatusCode.ok
     body: Body = JSON.parse(faker.datatype.json())
     callsCount: number = 0
+    return: any
 
     async handler(httpRequest?: HttpRequest): Promise<HttpResponse> {
         this.input = httpRequest
         this.callsCount++
-        return {
-            statusCode: this.statusCode,
-            body: this.body
-        }
+        this.return = { statusCode: this.statusCode, body: this.body }
+        return this.return
     }            
 }
