@@ -1,18 +1,12 @@
-import { faker } from '@faker-js/faker'
 import { describe, it, expect } from '@jest/globals'
 
-import { ControllerStub } from '../../../../mocks/stubs/controller-stub'
-import { LogControllerDecorator } from '@/common/presentation/decorators/log-controller.decorator'
-import { LogErrorRepositoryMock } from './mocks/log-error-repository.mock'
+import { makeLogControllerDecorator } from './mocks/log-controller-decorator.factory'
 
 describe('LogControllerDecorator Suíte', () => {
 
-    it('Deve chamar handle com o parrâmetro correto', async () => {
+    it('Deve chamar handler com o parrâmetro correto', async () => {
 
-        const httpRequest = JSON.parse(faker.datatype.json())
-        const controllerStub = new ControllerStub()
-        const logErrorRepositoryFake = new LogErrorRepositoryMock()
-        const sut = new LogControllerDecorator(controllerStub, logErrorRepositoryFake)
+        const { sut, httpRequest, controllerStub } = makeLogControllerDecorator()
 
         await sut.handler({ body: httpRequest})
         expect(controllerStub.input.body).toEqual(httpRequest)
