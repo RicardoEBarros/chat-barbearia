@@ -3,7 +3,7 @@ import { describe, it, expect, jest } from '@jest/globals'
 import { StatusCode } from '@/common/presentation/enums/status-code'
 import { InternalServerError } from '@/common/presentation/errors/internal-server-error.error'
 import * as HttpHelper from '@/common/presentation/helpers/http-helper'
-import { makeHealthController } from './mocks/factories/health-controller.factory'
+import { makeHealthController } from './mocks/health-controller.factory'
 
 describe('HealthController Test Suíte', () => {
 
