@@ -21,7 +21,6 @@ describe('LogControllerDecorator Suíte', () => {
 
         /** valores aleatórios */
         controllerStub.statusCode = RandomStatusCodeObjectMother.successCode()
-        controllerStub.body = new Error()
 
         await sut.handler({ body: httpRequest})
         expect(controllerStub.callsCount).toBe(1)
@@ -29,7 +28,21 @@ describe('LogControllerDecorator Suíte', () => {
 
     })
 
-    it.todo('Deve chamar logError com o parâmetro correto se status code for da família 500')
+    it('Deve chamar logError com o parâmetro correto se status code for da família 500', async () => {
+
+        const { sut, httpRequest, controllerStub, logErrorRepositoryStub } = makeLogControllerDecorator()
+
+        /** valores aleatórios */
+        controllerStub.statusCode = RandomStatusCodeObjectMother.serverErrorCode()
+        controllerStub.body = new Error()
+
+        await sut.handler({ body: httpRequest})
+        expect(controllerStub.callsCount).toBe(1)
+        expect(logErrorRepositoryStub.callsCount).toBe(1)         
+        expect(logErrorRepositoryStub.input).toEqual(controllerStub.body.stack)
+
+    })
+
     it.todo('Deve retornar o valor correto se tudo der certo')
 
 })
