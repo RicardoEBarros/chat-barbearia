@@ -1,17 +1,14 @@
 import { describe, it, expect } from '@jest/globals'
 
 import { HttpRequestMother, RandomStatusCodeObjectMother } from '../../../../mocks/object-mothers'
-import { ControllerStub } from '../../../../mocks/stubs/controller-stub'
-import { SafeExecutionOfTheController } from '@/common/presentation/decorators'
 import { serverError } from '@/common/presentation/helpers/http-helper'
+import { makeSafeExecutionOfTheController } from './mocks/safe-execution-of-the-controller.factory'
 
 describe('SafeExecutionOfTheController Suíte', () => {
 
     it('Deve chamar o método handle do controller', async () => {
 
-        const httpRequest = HttpRequestMother.oneProperty()
-        const controllerStub = new ControllerStub()
-        const sut = new SafeExecutionOfTheController(controllerStub)
+        const { sut, httpRequest, controllerStub } = makeSafeExecutionOfTheController()
 
         await sut.run(httpRequest)
 
@@ -22,9 +19,7 @@ describe('SafeExecutionOfTheController Suíte', () => {
 
     it('Deve retornar os dados do método handle se tudo der certo', async () => {
 
-        const httpRequest = HttpRequestMother.oneProperty()
-        const controllerStub = new ControllerStub()
-        const sut = new SafeExecutionOfTheController(controllerStub)
+        const { sut, httpRequest, controllerStub } = makeSafeExecutionOfTheController()
 
         /** retorno aleatório */
         controllerStub.return.statusCode = RandomStatusCodeObjectMother.oneCodeBetweenAllValidFamilies()
@@ -38,9 +33,7 @@ describe('SafeExecutionOfTheController Suíte', () => {
 
     it('Deve retornar o status code 500', async () => {
 
-        const httpRequest = HttpRequestMother.oneProperty()
-        const controllerStub = new ControllerStub()
-        const sut = new SafeExecutionOfTheController(controllerStub)
+        const { sut, httpRequest, controllerStub } = makeSafeExecutionOfTheController()
 
         /** força um erro */
         controllerStub.error = true
