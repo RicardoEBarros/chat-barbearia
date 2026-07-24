@@ -3,7 +3,7 @@ import request from 'supertest'
 import { describe, it, expect, beforeEach } from '@jest/globals'
 
 import { adaptRoute } from '@/common/presentation/adapters/express-route-adapter'
-import { makeExpressRouteAdapter } from './mocks/factories/express-route-adapter.factory'
+import { makeExpressRouteAdapter } from './mocks/express-route-adapter.factory'
 import { faker } from '@faker-js/faker'
 
 describe('ExpressRouteAdapter Suíte', () => {
