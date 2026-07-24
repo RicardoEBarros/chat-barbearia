@@ -4,6 +4,7 @@ import { faker } from '@faker-js/faker'
 
 type Body = {
     stack?: string
+    message?: string
 } 
 
 export class ControllerStub implements Controller {
