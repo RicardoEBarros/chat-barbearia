@@ -55,7 +55,7 @@ describe('Routes Setup Suíte', () => {
 
         await setupRoutes(app)
 
-        expect(fs.readdirSync).toHaveBeenCalledWith(expect.stringContaining('health/presentation/route'))
+        expect(fs.readdirSync).toHaveBeenCalledWith(expect.stringContaining('health/presentation/routes'))
 
     })
 
