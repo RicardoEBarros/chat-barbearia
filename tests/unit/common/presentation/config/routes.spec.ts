@@ -1,6 +1,7 @@
-import { describe, it, expect, jest, beforeEach } from '@jest/globals'
-import fs from 'fs'
+import fs from 'node:fs'
 import express, { type Express } from 'express'
+import { describe, it, expect, jest, beforeEach } from '@jest/globals'
+
 import setupRoutes from '@/common/presentation/config'
 
 jest.mock('node:fs')
@@ -25,7 +26,16 @@ describe('Routes Setup Suíte', () => {
 
     })
 
-    it.todo('Deve buscar pastas dentro do diretório modules')
+    it('Deve buscar pastas dentro do diretório modules', async () => {
+
+        const readdirSyncSpy = jest.spyOn(fs, 'readdirSync').mockReturnValue([])
+
+        await setupRoutes(app)
+
+        expect(readdirSyncSpy).toHaveBeenCalledWith(expect.stringContaining('modules'))
+
+    })
+
     it.todo('Deve ignorar módulos que não possuem a pasta presentation/routes')
 
 })
