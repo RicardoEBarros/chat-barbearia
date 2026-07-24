@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker'
 
-import { ControllerStub } from '../../../../../mocks/stubs/controller-stub'
+import { ControllerStub } from '@/tests/mocks/stubs/controller-stub'
 import { LogErrorRepositoryStub } from '.'
 import { LogControllerDecorator } from '@/common/presentation/decorators'
 import { Controller } from '@/common/presentation/protocols'

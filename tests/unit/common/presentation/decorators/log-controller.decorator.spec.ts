@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker'
 import { describe, it, expect } from '@jest/globals'
 
 import { makeLogControllerDecorator } from './mocks'
-import { RandomStatusCodeObjectMother } from '../../../../mocks/object-mothers'
+import { RandomStatusCodeObjectMother } from '@/tests/mocks/object-mothers'
 
 describe('LogControllerDecorator Suíte', () => {
 

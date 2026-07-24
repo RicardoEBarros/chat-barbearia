@@ -1,6 +1,6 @@
 import { describe, it, expect } from '@jest/globals'
 
-import { HttpRequestMother, RandomStatusCodeObjectMother } from '../../../../mocks/object-mothers'
+import { HttpRequestMother, RandomStatusCodeObjectMother } from '@/tests/mocks/object-mothers'
 import { serverError } from '@/common/presentation/helpers/http-helper'
 import { makeSafeExecutionOfTheController } from './mocks/safe-execution-of-the-controller.factory'
 

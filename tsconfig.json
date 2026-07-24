@@ -15,6 +15,7 @@
         "target": "es2025",
         "moduleResolution": "nodenext",
         "paths": {
+            "@/tests/*": ["./tests/*"],
             "@/*": ["./src/*"]
         }
     }

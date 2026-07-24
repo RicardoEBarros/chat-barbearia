@@ -1,7 +1,7 @@
 import { HttpRequest, SafeExecution } from '@/common/presentation/protocols'
-import { ControllerStub } from '../../../../../mocks/stubs/controller-stub'
+import { ControllerStub } from '@/tests/mocks/stubs/controller-stub'
 import { SafeExecutionOfTheController } from '@/common/presentation/decorators'
-import { HttpRequestMother } from '../../../../../mocks/object-mothers'
+import { HttpRequestMother } from '@/tests/mocks/object-mothers'
 
 interface SutTypes {
     httpRequest: HttpRequest
