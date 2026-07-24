@@ -1,5 +1,5 @@
-import { HttpRequest } from './http'
+import { HttpRequest, HttpResponse } from './http'
 
 export interface SafeExecution {
-    run(httpRequest: HttpRequest): Promise<HttpRequest>
+    run(httpRequest: HttpRequest): Promise<HttpResponse>
 }
