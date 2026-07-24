@@ -1,9 +1,9 @@
 import { faker } from '@faker-js/faker'
 
 import { ControllerStub } from '../../../../../mocks/stubs/controller-stub'
-import { LogErrorRepositoryStub } from './log-error-repository.stub'
-import { LogControllerDecorator } from '@/common/presentation/decorators/log-controller.decorator'
-import { Controller } from '@/common/presentation/protocols/controller.protocol'
+import { LogErrorRepositoryStub } from '.'
+import { LogControllerDecorator } from '@/common/presentation/decorators'
+import { Controller } from '@/common/presentation/protocols'
 
 interface SutTypes {
     controllerStub: ControllerStub

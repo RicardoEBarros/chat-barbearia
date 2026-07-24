@@ -1,4 +1,4 @@
-import { Controller } from '@/common/presentation/protocols/controller.protocol'
+import { Controller } from '@/common/presentation/protocols'
 import { HealthController } from '@/modules/health/presentation/health-controller'
 
 interface SutTypes {

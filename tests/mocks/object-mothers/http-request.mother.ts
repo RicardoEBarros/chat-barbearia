@@ -1,5 +1,5 @@
-import { HttpRequest } from '@/common/presentation/protocols/http'
-import { HttpRequestBuilder } from '../builders/http-request.builder'
+import { HttpRequest } from '@/common/presentation/protocols'
+import { HttpRequestBuilder } from '../builders'
 
 export class HttpRequestMother {
 

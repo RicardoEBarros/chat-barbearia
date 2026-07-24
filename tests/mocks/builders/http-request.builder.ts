@@ -1,4 +1,4 @@
-import { HttpRequest } from '@/common/presentation/protocols/http'
+import { HttpRequest } from '@/common/presentation/protocols'
 import { Builder } from '../protocols/builder.protocol'
 import { faker } from '@faker-js/faker'
 

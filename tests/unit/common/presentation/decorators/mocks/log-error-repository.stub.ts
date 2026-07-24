@@ -1,4 +1,4 @@
-import { LogError } from '@/common/presentation/protocols/log-error.protocol'
+import { LogError } from '@/common/presentation/protocols'
 
 export class LogErrorRepositoryStub implements LogError {
 

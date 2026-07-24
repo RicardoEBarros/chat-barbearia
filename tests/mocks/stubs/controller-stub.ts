@@ -1,6 +1,5 @@
 import { StatusCode } from '@/common/presentation/enums/status-code'
-import { Controller } from '@/common/presentation/protocols/controller.protocol'
-import { HttpRequest, HttpResponse } from '@/common/presentation/protocols/http'
+import { HttpRequest, HttpResponse, Controller } from '@/common/presentation/protocols'
 import { faker } from '@faker-js/faker'
 
 type Body = {

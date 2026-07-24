@@ -1,9 +1,8 @@
 import { describe, it, expect } from '@jest/globals'
 
-import { HttpRequestMother } from '../../../../mocks/object-mothers/http-request.mother'
+import { HttpRequestMother, RandomStatusCodeObjectMother } from '../../../../mocks/object-mothers'
 import { ControllerStub } from '../../../../mocks/stubs/controller-stub'
-import { SafeExecutionOfTheController } from '@/common/presentation/decorators/safe-execution-of-the-controller.decorator'
-import { RandomStatusCodeObjectMother } from '../../../../mocks/object-mothers/random-status-code.mother'
+import { SafeExecutionOfTheController } from '@/common/presentation/decorators'
 import { serverError } from '@/common/presentation/helpers/http-helper'
 
 describe('SafeExecutionOfTheController Suíte', () => {

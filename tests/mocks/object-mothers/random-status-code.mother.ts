@@ -1,4 +1,4 @@
-import { RandomStatusCodeBuilder } from '../builders/status-code.builder'
+import { RandomStatusCodeBuilder } from '../builders'
 
 export class RandomStatusCodeObjectMother {
 

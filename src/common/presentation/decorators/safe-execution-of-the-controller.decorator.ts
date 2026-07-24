@@ -1,7 +1,5 @@
 import { serverError } from '../helpers/http-helper'
-import { Controller } from '../protocols/controller.protocol'
-import { HttpRequest, HttpResponse } from '../protocols/http'
-import { SafeExecution } from '../protocols/safe-execution.protocol'
+import { SafeExecution, HttpRequest, HttpResponse, Controller } from '../protocols'
 
 export class SafeExecutionOfTheController implements SafeExecution {
     

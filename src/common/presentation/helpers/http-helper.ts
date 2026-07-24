@@ -1,5 +1,5 @@
 import { StatusCode } from '@/common/presentation/enums/status-code'
-import { HttpResponse } from '@/common/presentation/protocols/http'
+import { HttpResponse } from '@/common/presentation/protocols'
 import { InternalServerError } from '../errors/internal-server-error.error'
 
 export const ok = (data: any = null): HttpResponse => ({

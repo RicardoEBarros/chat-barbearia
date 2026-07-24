@@ -1,6 +1,5 @@
 import { ok, serverError } from '@/common/presentation/helpers/http-helper'
-import { Controller } from '@/common/presentation/protocols/controller.protocol'
-import { HttpResponse } from '@/common/presentation/protocols/http'
+import { HttpResponse, Controller } from '@/common/presentation/protocols'
 
 export class HealthController implements Controller {
 
