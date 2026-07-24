@@ -28,15 +28,36 @@ describe('Routes Setup Suíte', () => {
 
     it('Deve buscar pastas dentro do diretório modules', async () => {
 
-        const readdirSyncSpy = jest.spyOn(fs, 'readdirSync').mockReturnValue([])
-
         await setupRoutes(app)
 
-        expect(readdirSyncSpy).toHaveBeenCalledWith(expect.stringContaining('modules'))
+        expect(fs.readdirSync).toHaveBeenCalledWith(expect.stringContaining('modules'))
 
     })
 
-    it.todo('Deve ignorar módulos que não possuem a pasta presentation/routes')
+    it('Deve ignorar módulos que não possuem a pasta presentation/routes', async () => {
+
+        jest.spyOn(fs, 'readdirSync').mockImplementation((path: any) => {
+            if (path.includes('modules') && !path.includes('routes')) {
+                return [ 'health', 'common' ] as any
+            }
+            if (path.includes('health')) {
+                return [ 'health.routes.ts' ] as any
+            }
+            return []
+        })
+
+        jest.spyOn(fs, 'statSync').mockImplementation((path: any) => {
+            if (path.includes('common')) {
+                throw new Error('ENOENT: no such file or directory')
+            }
+            return { isDirectory: () => true } as any
+        })
+
+        await setupRoutes(app)
+
+        expect(fs.readdirSync).toHaveBeenCalledWith(expect.stringContaining('health/presentation/route'))
+
+    })
 
 })
 
