@@ -15,7 +15,7 @@ export class ControllerStub implements Controller {
     return: HttpResponse = { statusCode: StatusCode.ok, body: '' }
     error: boolean = false
 
-    async handler(httpRequest?: HttpRequest): Promise<HttpResponse> {
+    async handle(httpRequest?: HttpRequest): Promise<HttpResponse> {
         this.input = httpRequest
         this.callsCount++
         this.return = { statusCode: this.statusCode, body: this.body }

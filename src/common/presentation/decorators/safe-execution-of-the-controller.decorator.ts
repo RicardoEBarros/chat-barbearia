@@ -8,7 +8,7 @@ export class SafeExecutionOfTheController implements SafeExecution {
     async run(httpRequest: HttpRequest): Promise<HttpResponse> {
 
         try {
-            return await this.controller.handler(httpRequest)            
+            return await this.controller.handle(httpRequest)            
         } catch (error) {
             return serverError((error as Error))
         }

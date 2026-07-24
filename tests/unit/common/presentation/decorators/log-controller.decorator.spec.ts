@@ -6,11 +6,11 @@ import { RandomStatusCodeObjectMother } from '../../../../mocks/object-mothers'
 
 describe('LogControllerDecorator Suíte', () => {
 
-    it('Deve chamar handler com o parrâmetro correto', async () => {
+    it('Deve chamar handle com o parrâmetro correto', async () => {
 
         const { sut, httpRequest, controllerStub } = makeLogControllerDecorator()
 
-        await sut.handler({ body: httpRequest})
+        await sut.handle({ body: httpRequest})
         expect(controllerStub.input.body).toEqual(httpRequest)
         expect(controllerStub.callsCount).toBe(1)
 
@@ -23,7 +23,7 @@ describe('LogControllerDecorator Suíte', () => {
         /** valores aleatórios */
         controllerStub.statusCode = RandomStatusCodeObjectMother.successCode()
 
-        await sut.handler({ body: httpRequest})
+        await sut.handle({ body: httpRequest})
         expect(controllerStub.callsCount).toBe(1)
         expect(logErrorRepositoryStub.callsCount).toBe(0) 
 
@@ -37,7 +37,7 @@ describe('LogControllerDecorator Suíte', () => {
         controllerStub.statusCode = RandomStatusCodeObjectMother.serverErrorCode()
         controllerStub.body = new Error()
 
-        await sut.handler({ body: httpRequest})
+        await sut.handle({ body: httpRequest})
         expect(controllerStub.callsCount).toBe(1)
         expect(logErrorRepositoryStub.callsCount).toBe(1)         
         expect(logErrorRepositoryStub.input).toEqual(controllerStub.body.stack)
@@ -52,7 +52,7 @@ describe('LogControllerDecorator Suíte', () => {
         controllerStub.statusCode = RandomStatusCodeObjectMother.oneCodeBetweenAllValidFamilies()
         controllerStub.body = JSON.parse(faker.datatype.json())
 
-        const httpResponse = await sut.handler({ body: httpRequest})
+        const httpResponse = await sut.handle({ body: httpRequest})
         expect(controllerStub.callsCount).toBe(1)
         expect(httpResponse).toEqual(controllerStub.return)
 

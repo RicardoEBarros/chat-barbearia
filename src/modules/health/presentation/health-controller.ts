@@ -3,7 +3,7 @@ import { HttpResponse, Controller } from '@/common/presentation/protocols'
 
 export class HealthController implements Controller {
 
-    async handler(): Promise<HttpResponse> {
+    async handle(): Promise<HttpResponse> {
         
         try {
             return ok()

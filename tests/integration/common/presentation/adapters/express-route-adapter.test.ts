@@ -17,7 +17,7 @@ describe('ExpressRouteAdapter Suíte', () => {
 
     describe('POST', () => {
 
-        it('Deve chamar o método handler com o parâmetro correto se método for POST', async () => {
+        it('Deve chamar o método handle com o parâmetro correto se método for POST', async () => {
 
             const { endPointFake, bodyFake, controllerStub } = makeExpressRouteAdapter()
 
@@ -31,7 +31,7 @@ describe('ExpressRouteAdapter Suíte', () => {
 
         })
 
-        it('Deve chamar o método handler sem um body se método for POST', async () => {
+        it('Deve chamar o método handle sem um body se método for POST', async () => {
 
             const { endPointFake, controllerStub } = makeExpressRouteAdapter()
 
@@ -84,7 +84,7 @@ describe('ExpressRouteAdapter Suíte', () => {
 
     describe('GET', () => {
 
-        it('Deve chamar o método handler com o parâmetro correto se método for GET', async () => {
+        it('Deve chamar o método handle com o parâmetro correto se método for GET', async () => {
 
             const { endPointFake, bodyFake, controllerStub } = makeExpressRouteAdapter()
 
@@ -99,7 +99,7 @@ describe('ExpressRouteAdapter Suíte', () => {
         })    
 
 
-        it('Deve chamar o método handler sem um body se método for GET', async () => {
+        it('Deve chamar o método handle sem um body se método for GET', async () => {
 
             const { endPointFake, controllerStub } = makeExpressRouteAdapter()
 
@@ -151,7 +151,7 @@ describe('ExpressRouteAdapter Suíte', () => {
 
     describe('PUT', () => {
 
-        it('Deve chamar o método handler com o parâmetro correto se método for PUT', async () => {
+        it('Deve chamar o método handle com o parâmetro correto se método for PUT', async () => {
 
             const { endPointFake, bodyFake, controllerStub } = makeExpressRouteAdapter()
 
@@ -165,7 +165,7 @@ describe('ExpressRouteAdapter Suíte', () => {
 
         })      
 
-        it('Deve chamar o método handler sem um body se método for PUT', async () => {
+        it('Deve chamar o método handle sem um body se método for PUT', async () => {
 
             const { endPointFake, controllerStub } = makeExpressRouteAdapter()
 
@@ -217,7 +217,7 @@ describe('ExpressRouteAdapter Suíte', () => {
 
     describe('PATCH', () => {
 
-        it('Deve chamar o método handler com o parâmetro correto se método for PATCH', async () => {
+        it('Deve chamar o método handle com o parâmetro correto se método for PATCH', async () => {
 
             const { endPointFake, bodyFake, controllerStub } = makeExpressRouteAdapter()
 
@@ -231,7 +231,7 @@ describe('ExpressRouteAdapter Suíte', () => {
 
         })       
             
-        it('Deve chamar o método handler sem um body se método for PATCH', async () => {
+        it('Deve chamar o método handle sem um body se método for PATCH', async () => {
 
             const { endPointFake, controllerStub } = makeExpressRouteAdapter()
 
@@ -284,7 +284,7 @@ describe('ExpressRouteAdapter Suíte', () => {
 
     describe('DELETE', () => {
 
-        it('Deve chamar o método handler com o parâmetro correto se método for DELETE', async () => {
+        it('Deve chamar o método handle com o parâmetro correto se método for DELETE', async () => {
 
             const { endPointFake, bodyFake, controllerStub } = makeExpressRouteAdapter()
 
@@ -298,7 +298,7 @@ describe('ExpressRouteAdapter Suíte', () => {
 
         })       
 
-        it('Deve chamar o método handler sem um body se método for DELETE', async () => {
+        it('Deve chamar o método handle sem um body se método for DELETE', async () => {
 
             const { endPointFake, controllerStub } = makeExpressRouteAdapter()
 
