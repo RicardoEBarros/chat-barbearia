@@ -3,6 +3,7 @@ import { describe, it, expect } from '@jest/globals'
 import { HttpRequestMother } from '../../../../mocks/object-mothers/http-request.mother'
 import { ControllerStub } from '../../../../mocks/stubs/controller-stub'
 import { SafeExecutionOfTheController } from '@/common/presentation/decorators/safe-execution-of-the-controller.decorator'
+import { RandomStatusCodeObjectMother } from '../../../../mocks/object-mothers/random-status-code.mother'
 
 describe('SafeExecutionOfTheController Suíte', () => {
 
@@ -19,7 +20,22 @@ describe('SafeExecutionOfTheController Suíte', () => {
 
     })
 
-    it.todo('Deve retornar os dados do método handle se tudo der certo')
+    it('Deve retornar os dados do método handle se tudo der certo', async () => {
+
+        const httpRequest = HttpRequestMother.oneProperty()
+        const controllerStub = new ControllerStub()
+        const sut = new SafeExecutionOfTheController(controllerStub)
+
+        /** retorno aleatório */
+        controllerStub.return.statusCode = RandomStatusCodeObjectMother.oneCodeBetweenAllValidFamilies()
+        controllerStub.return.body = HttpRequestMother.oneProperty().body
+
+        const httpResponse = await sut.run(httpRequest)
+
+        expect(httpResponse).toEqual(controllerStub.return)        
+
+    })
+
     it.todo('Deve lançar uma exceção se falhar')
 
 })
