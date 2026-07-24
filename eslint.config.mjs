@@ -7,7 +7,7 @@ import stylisticJs from '@stylistic/eslint-plugin'
 export default defineConfig([
   ...tseslint.configs.recommended,
   { 
-    ignores: [ 'dist', '**/*.config.js', '**/*.json' ],
+    ignores: [ 'dist', '**/*.config.{js,ts}', '**/*.json' ],
     files: [ '**/*.{js,cjs,ts,mts,cts}' ], 
     plugins: { 
       js, 
