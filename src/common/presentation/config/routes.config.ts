@@ -1,5 +1,5 @@
 import { type Express, Router } from 'express'
-import { readdirSync } from 'node:fs'
+import { readdirSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 
 export default async (app: Express): Promise<void> => {
@@ -9,7 +9,23 @@ export default async (app: Express): Promise<void> => {
     const modulesPath = join(__dirname, '../../../modules')
 
     try {
-        readdirSync(modulesPath)
+        const moduleFolders = readdirSync(modulesPath)
+
+        for (const moduleFolder of moduleFolders) {
+            const routesPath = join(modulesPath, moduleFolder, 'presentation', 'routes')
+            try {
+                if (statSync(routesPath).isDirectory()) {
+                    const routeFiles = readdirSync(routesPath)
+                    for (const file of routeFiles) {
+                        const route = await import(join(routesPath, file))
+                        if (route.default) {
+                            route.default(router)
+                        }
+                    }
+                }
+            } catch {}
+        }
+
     } catch {}
 }
 
