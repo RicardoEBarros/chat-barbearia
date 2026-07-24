@@ -4,6 +4,7 @@ import { HttpRequestMother } from '../../../../mocks/object-mothers/http-request
 import { ControllerStub } from '../../../../mocks/stubs/controller-stub'
 import { SafeExecutionOfTheController } from '@/common/presentation/decorators/safe-execution-of-the-controller.decorator'
 import { RandomStatusCodeObjectMother } from '../../../../mocks/object-mothers/random-status-code.mother'
+import { serverError } from '@/common/presentation/helpers/http-helper'
 
 describe('SafeExecutionOfTheController Suíte', () => {
 
@@ -36,6 +37,20 @@ describe('SafeExecutionOfTheController Suíte', () => {
 
     })
 
-    it.todo('Deve lançar uma exceção se falhar')
+    it('Deve retornar o status code 500', async () => {
+
+        const httpRequest = HttpRequestMother.oneProperty()
+        const controllerStub = new ControllerStub()
+        const sut = new SafeExecutionOfTheController(controllerStub)
+
+        /** força um erro */
+        controllerStub.error = true
+
+        const httpResponse = await sut.run(httpRequest)
+
+        expect(httpResponse).toEqual(serverError(new Error()))
+
+
+    })
 
 })
