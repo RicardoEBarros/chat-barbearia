@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import express, { type Express } from 'express'
 import { describe, it, expect, jest, beforeEach } from '@jest/globals'
 
-import setupRoutes from '@/common/presentation/config'
+import setupRoutes from '@/common/main/config'
 
 jest.mock('node:fs')
 
