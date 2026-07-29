@@ -2,7 +2,7 @@ import { type Express, Router } from 'express'
 import { readdirSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 
-export default async (app: Express): Promise<void> => {
+export const setupRoutes = async (app: Express): Promise<void> => {
     
     const router = Router()
     app.use('/api', router)
