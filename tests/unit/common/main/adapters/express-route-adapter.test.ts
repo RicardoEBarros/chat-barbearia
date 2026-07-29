@@ -1,10 +1,10 @@
 import express from 'express'
 import request from 'supertest'
+import { faker } from '@faker-js/faker'
 import { describe, it, expect, beforeEach } from '@jest/globals'
 
-import { adaptRoute } from '@/common/presentation/adapters/express-route-adapter'
 import { makeExpressRouteAdapter } from './mocks/express-route-adapter.factory'
-import { faker } from '@faker-js/faker'
+import { adaptRoute } from '@/common/main/adapters/express-route-adapter'
 
 describe('ExpressRouteAdapter Suíte', () => {
 
